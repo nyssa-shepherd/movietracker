@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { fetchMovieApi } from './api/apiCalls';
+import { fetchMovieApi } from '../api/apiCalls';
 
 class App extends Component {
 
