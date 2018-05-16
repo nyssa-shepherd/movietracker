@@ -7,6 +7,7 @@ class Cards extends Component {
       return (
         <div className='card'>
           <h3>{movie.title}</h3>
+          <p>{movie.overview}</p>
         </div>
       );
     });
