@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
-import { fetchMovieApi } from '../api/apiCalls';
+import { fetchMovies } from '../api/apiCalls';
+import { connect } from 'react-redux';
+import { addMovies, fetchApiMovies } from '../redux/actions/index.js';
 
 class App extends Component {
 
-  componentDidMount() {
-    fetchMovieApi();
+  async componentDidMount() {
+    const { fetchApiMovies, movies } = this.props;
+    await fetchApiMovies(); 
+    await console.log(movies) 
   }
 
   render() {
@@ -13,6 +17,14 @@ class App extends Component {
       </div>
     );
   }
-}
+};
 
-export default App;
+const mapStateToProps = store => ({
+  movies: store.movies
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchApiMovies: () => dispatch(fetchApiMovies())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
