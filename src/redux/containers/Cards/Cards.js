@@ -4,9 +4,14 @@ import { connect } from 'react-redux';
 class Cards extends Component {
   render() {
     const movies = this.props.movies.map( movie => {
+      let originalDate = movie.release_date.split('-');
+      let cleanDate = [originalDate[1], originalDate[2], originalDate[0]];
+      cleanDate = cleanDate.join('/');
+
       return (
         <div className='card'>
           <h3>{movie.title}</h3>
+          <h5>{cleanDate}</h5>
           <p>{movie.overview}</p>
         </div>
       );
