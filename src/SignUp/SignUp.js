@@ -7,7 +7,8 @@ class SignUp extends Component {
     this.state = {
       username: null,
       password: null,
-      existingUsers: null
+      existingUsers: null,
+      usernameExistsMessage: null
     }
   }
 
@@ -28,14 +29,14 @@ class SignUp extends Component {
     this.setState({ existingUsers });
   }
 
-  checkIfUsernameExists = () => {
+  checkIfUsernameExists = e => {
+    e.preventDefault();
     const { existingUsers, username } = this.state;
     const userExists = existingUsers.find( user => user.username === username ? user : null );
     !userExists ? this.postUser() : this.usernameExistsMessage();
   }
 
-  postUser = async e => {
-    e.preventDefault();
+  postUser = async() => {
     const { username, password } = this.state;
     const post = await fetch(`http://localhost:3000/api/v1/users`, {
       method: 'POST',
@@ -45,10 +46,18 @@ class SignUp extends Component {
     const user = await post.json();
   }
 
+  usernameExistsMessage = () => {
+    this.setState({ usernameExistsMessage: 'Error username already exists' });
+  }
+
   render() {
+    const { usernameExistsMessage } = this.state;
+    const errorMessage = usernameExistsMessage ? <h5>{usernameExistsMessage}</h5> : null;
+
     return (
       <div>
         <form onSubmit={ e => this.checkIfUsernameExists(e) }>
+          {errorMessage}
           <input type='text'
                  name='username'
                  placeholder='username'
