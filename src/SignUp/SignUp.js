@@ -59,6 +59,7 @@ class SignUp extends Component {
       <div>
         <form id='sign-up'
               onSubmit={ e => this.checkIfUsernameExists(e) }>
+          <h3>Sign Up</h3>
           {errorMessage}
           <input type='text'
                  name='username'
