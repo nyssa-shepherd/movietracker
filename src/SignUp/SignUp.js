@@ -40,7 +40,7 @@ class SignUp extends Component {
                  name='password'
                  placeholder='password' 
                  onChange={ e => this.handleInputChange(e) } />
-          <button>Sign Up</button>
+          <button disabled={!this.state.username || !this.state.password}>Sign Up</button>
         </form>
       </div>
     );
