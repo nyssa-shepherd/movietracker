@@ -3,6 +3,10 @@ form {
   flex-direction: column;
 }
 
+.signup-text {
+  color: black;
+}
+
 input {
   height: 20px;
   width: 300px;
