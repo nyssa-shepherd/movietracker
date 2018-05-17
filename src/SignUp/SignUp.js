@@ -6,8 +6,13 @@ class SignUp extends Component {
     super();
     this.state = {
       username: null,
-      password: null
+      password: null,
+      existingUsers: null
     }
+  }
+
+  componentDidMount = () => {
+    this.getUsers();
   }
 
   handleInputChange = e => {
@@ -15,6 +20,18 @@ class SignUp extends Component {
     this.setState({ [name]: value }, () => {
       console.log(this.state);
     });
+  }
+
+  getUsers = async e => {
+    const initalFetch = await fetch(`http://localhost:3000/api/v1/users`);
+    const existingUsers = await initalFetch.json();
+    this.setState({ existingUsers });
+  }
+
+  checkIfUsernameExists = () => {
+    const { existingUsers, username } = this.state;
+    const userExists = existingUsers.find( user => user.username === username ? user : null );
+    !userExists ? this.postUser() : this.usernameExistsMessage();
   }
 
   postUser = async e => {
@@ -31,7 +48,7 @@ class SignUp extends Component {
   render() {
     return (
       <div>
-        <form onSubmit={ e => this.postUser(e) }>
+        <form onSubmit={ e => this.checkIfUsernameExists(e) }>
           <input type='text'
                  name='username'
                  placeholder='username'
