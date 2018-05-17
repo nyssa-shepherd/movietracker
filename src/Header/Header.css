@@ -18,6 +18,10 @@ h1 {
   padding-top: 40px;
 }
 
+.nav-links {
+  margin-right: 20px;
+}
+
 .nav {
   color: white;
 }
