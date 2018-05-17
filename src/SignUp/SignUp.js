@@ -17,14 +17,21 @@ class SignUp extends Component {
     });
   }
 
-  postUser = () => {
-
+  postUser = async e => {
+    e.preventDefault();
+    const { username, password } = this.state;
+    const post = await fetch(`http://localhost:3000/api/v1/users`, {
+      method: 'POST',
+      body: JSON.stringify({ username, password }),
+      headers: new Headers({ 'Content-Type': 'application/json' })
+    });
+    const user = await post.json();
   }
 
   render() {
     return (
       <div>
-        <form onSubmit={ () => this.postUser() }>
+        <form onSubmit={ e => this.postUser(e) }>
           <input type='text'
                  name='username'
                  placeholder='username'
