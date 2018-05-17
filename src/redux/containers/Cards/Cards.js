@@ -7,9 +7,10 @@ class Cards extends Component {
       let originalDate = movie.release_date.split('-');
       let cleanDate = [originalDate[1], originalDate[2], originalDate[0]];
       cleanDate = cleanDate.join('/');
-
+    
       return (
         <div className='card' key={i}>
+          <img src={movie.poster_path}/>
           <h3>{movie.title}</h3>
           <h5>{cleanDate}</h5>
           <p>{movie.overview}</p>
