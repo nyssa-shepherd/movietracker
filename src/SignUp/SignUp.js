@@ -33,6 +33,7 @@ class SignUp extends Component {
     e.preventDefault();
     const { existingUsers, username } = this.state;
     const userExists = existingUsers.find( user => user.username === username ? user : null );
+    document.getElementById('sign-up').reset();
     !userExists ? this.postUser() : this.usernameExistsMessage();
   }
 
@@ -56,7 +57,8 @@ class SignUp extends Component {
 
     return (
       <div>
-        <form onSubmit={ e => this.checkIfUsernameExists(e) }>
+        <form id='sign-up'
+              onSubmit={ e => this.checkIfUsernameExists(e) }>
           {errorMessage}
           <input type='text'
                  name='username'
