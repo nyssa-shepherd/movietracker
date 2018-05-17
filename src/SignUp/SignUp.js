@@ -6,8 +6,14 @@ class SignUp extends Component {
     super();
     this.state = {
       username: null,
-      password: null
+      password: null,
+      existingUsers: null,
+      usernameExistsMessage: null
     }
+  }
+
+  componentDidMount = () => {
+    this.getUsers();
   }
 
   handleInputChange = e => {
@@ -17,8 +23,21 @@ class SignUp extends Component {
     });
   }
 
-  postUser = async e => {
+  getUsers = async e => {
+    const initalFetch = await fetch(`http://localhost:3000/api/v1/users`);
+    const existingUsers = await initalFetch.json();
+    this.setState({ existingUsers });
+  }
+
+  checkIfUsernameExists = e => {
     e.preventDefault();
+    const { existingUsers, username } = this.state;
+    const userExists = existingUsers.find( user => user.username === username ? user : null );
+    document.getElementById('sign-up').reset();
+    !userExists ? this.postUser() : this.usernameExistsMessage();
+  }
+
+  postUser = async() => {
     const { username, password } = this.state;
     const post = await fetch(`http://localhost:3000/api/v1/users`, {
       method: 'POST',
@@ -28,10 +47,20 @@ class SignUp extends Component {
     const user = await post.json();
   }
 
+  usernameExistsMessage = () => {
+    this.setState({ usernameExistsMessage: 'Error username already exists' });
+  }
+
   render() {
+    const { usernameExistsMessage } = this.state;
+    const errorMessage = usernameExistsMessage ? <h5>{usernameExistsMessage}</h5> : null;
+
     return (
       <div>
-        <form onSubmit={ e => this.postUser(e) }>
+        <form id='sign-up'
+              onSubmit={ e => this.checkIfUsernameExists(e) }>
+          <h3>Sign Up</h3>
+          {errorMessage}
           <input type='text'
                  name='username'
                  placeholder='username'
@@ -40,7 +69,7 @@ class SignUp extends Component {
                  name='password'
                  placeholder='password' 
                  onChange={ e => this.handleInputChange(e) } />
-          <button>Sign Up</button>
+          <button disabled={!this.state.username || !this.state.password}>Sign Up</button>
         </form>
       </div>
     );
