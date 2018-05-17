@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, NavLink } from 'react-router-dom';
 import { withRouter } from 'react-router';
+import SignUp from '../SignUp/SignUp';
 import './Header.css';
 
 class Header extends Component {
@@ -12,15 +13,26 @@ class Header extends Component {
   }
 
   render() {
+    let toLog;
     let log;
-    !this.state.user ? log = 'login' : log = 'logout';
+
+    if (!this.state.user) {
+      toLog = '/signup'
+      log = 'Sign Up/Log In'
+    } else { 
+      toLog = 'logout' 
+      log = 'Log Out'
+    }
 
     return (
       <div className='header'>
         <h1>Movie Tracker</h1>
         <div className='nav-links'>
-          <NavLink to={log}>{log}</NavLink>
+          <NavLink to={toLog}>{log}</NavLink>
         </div>
+        <div>
+          <Route exact path='/signup' component={SignUp} />
+      </div>
       </div>
     );
   };
