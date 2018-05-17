@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { fetchMovies } from '../api/apiCalls';
 import { connect } from 'react-redux';
 import { fetchApiMovies } from '../redux/actions/index.js';
+import Header from '../Header/Header';
 import Cards from '../redux/containers/Cards/Cards';
 
 class App extends Component {
@@ -14,6 +15,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <Header/>
         <Cards />
       </div>
     );
