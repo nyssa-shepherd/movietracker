@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, NavLink } from 'react-router-dom';
 import { withRouter } from 'react-router';
+import Home from '../Home/Home';
 import SignUp from '../SignUp/SignUp';
 import './Header.css';
 
@@ -31,6 +32,7 @@ class Header extends Component {
           <NavLink to={toLog}>{log}</NavLink>
         </div>
         <div>
+          <Route exact path='/' component={Home} />
           <Route exact path='/signup' component={SignUp} />
       </div>
       </div>
