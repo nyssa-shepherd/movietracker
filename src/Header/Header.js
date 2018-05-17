@@ -27,9 +27,11 @@ class Header extends Component {
 
     return (
       <div className='header'>
-        <h1>Movie Tracker</h1>
-        <div className='nav-links'>
-          <NavLink to={toLog} className='nav'>{log}</NavLink>
+        <div className='header-text'>
+          <h1>Movie Tracker</h1>
+          <div className='nav-links'>
+            <NavLink to={toLog} className='nav'>{log}</NavLink>
+          </div>
         </div>
         <div>
           <Route exact path='/' component={Home} />
