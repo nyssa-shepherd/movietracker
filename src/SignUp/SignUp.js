@@ -13,22 +13,12 @@ class SignUp extends Component {
     }
   }
 
-  // componentDidMount = () => {
-  //   this.getUsers();
-  // }
-
   handleInputChange = e => {
     const { name, value } = e.target;
     this.setState({ [name]: value }, () => {
       console.log(this.state);
     });
   }
-
-  // getUsers = async e => {
-  //   const initalFetch = await fetch(`http://localhost:3000/api/v1/users`);
-  //   const existingUsers = await initalFetch.json();
-  //   this.setState({ existingUsers });
-  // }
 
   checkIfUsernameExists = e => {
     e.preventDefault();
