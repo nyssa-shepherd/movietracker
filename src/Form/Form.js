@@ -1,14 +1,25 @@
 import React, { Component } from 'react';
 import SignUp from '../SignUp/SignUp';
-import SignIn from '../SignIn';
+import SignIn from '../SignIn/SignIn';
 import './Form.css';
 
 class Form extends Component {
   constructor() {
     super();
     this.state = {
-      upOrIn: 'Sign Up'
+      upOrIn: 'Sign Up',
+      existingUsers: null
     }
+  }
+
+  componentDidMount = async() => {
+    await this.getUsers();
+  }
+
+  getUsers = async e => {
+    const initalFetch = await fetch(`http://localhost:3000/api/v1/users`);
+    const existingUsers = await initalFetch.json();
+    this.setState({ existingUsers });
   }
 
   toggleUpOrIn = () => {
@@ -17,8 +28,8 @@ class Form extends Component {
   }
 
   render() {
-    const { upOrIn } = this.state;
-    const correctForm = upOrIn === 'Sign Up' ? <SignUp/> : <SignIn/>;
+    const { upOrIn, existingUsers } = this.state;
+    const correctForm = upOrIn === 'Sign Up' ? <SignUp existingUsers={existingUsers}/> : <SignIn existingUsers={existingUsers}/>;
     const buttonLabel = upOrIn === 'Sign Up' ? 'Sign In' : 'Sign Up';
 
     return (

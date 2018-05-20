@@ -5,7 +5,7 @@ form {
   width: 300px;
 }
 
-.signup-text {
+.signup-text, .error-message  {
   color: black;
 }
 
