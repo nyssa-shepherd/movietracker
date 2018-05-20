@@ -8,7 +8,7 @@ class SignIn extends Component {
         <form id='sign-in'
             onSubmit={ e => this.getUser(e) }>
         <h3 className='signin-text'>Sign In</h3>
-        {errorMessage}
+        {/* {errorMessage} */}
         <input type='text'
               name='Username'
               placeholder='username'
