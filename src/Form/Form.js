@@ -4,9 +4,23 @@ import SignIn from '../SignIn';
 import './Form.css';
 
 class Form extends Component {
+  constructor() {
+    super();
+    this.state = {
+
+    }
+  }
+  
+  toggleUpOrIn = () => {
+    const { upOrIn } = this.state;
+    upOrIn === 'Sign In' ? this.setState({upOrIn: 'Sign Up'}) : this.setState({upOrIn: 'Sign In'});
+  }
+
   render() {
     return (
-      <div></div>
+      <div>
+
+      </div>
     );
   }
 };
