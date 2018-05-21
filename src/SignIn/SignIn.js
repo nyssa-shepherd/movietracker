@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import './SignIn.css';
 
 class SignIn extends Component {
@@ -6,7 +7,8 @@ class SignIn extends Component {
     super();
     this.state = {
       username: null,
-      password: null
+      password: null,
+      redirect: false
     }
   }
 
@@ -22,12 +24,17 @@ class SignIn extends Component {
     const { existingUsers } = this.props;
     const { username, password } = this.state;
     const matchingUser = existingUsers.find(user => user.username === username);
-    console.log(matchingUser);
+    matchingUser.password === password ? this.setState({ redirect: true }) : console.log('Imposter!');
+    console.log(this.state)
   }
 
   render() {
+    const { redirect } = this.state;
+    let redirection = redirect ? <Redirect to='/home'/> : console.log('no');
+    
     return (
       <div>
+        { redirection }
         <form id='sign-in'
             onSubmit={ e => this.getUser(e) }>
         <h3 className='signin-text'>Sign In</h3>
