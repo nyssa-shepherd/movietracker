@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route, NavLink } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import Home from '../Home/Home';
-import SignUp from '../SignUp/SignUp';
+import Form from '../Form/Form';
 import './Header.css';
 
 class Header extends Component {
@@ -34,8 +34,8 @@ class Header extends Component {
           </div>
         </div>
         <div>
-          <Route exact path='/' component={Home} />
-          <Route exact path='/signup' component={SignUp} />
+          <Route exact path='/home' component={Home} />
+          <Route exact path='/signup' component={Form} />
       </div>
       </div>
     );

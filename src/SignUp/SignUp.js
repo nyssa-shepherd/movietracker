@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Route, NavLink } from 'react-router-dom';
+import SignIn from '../SignIn/SignIn';
 import './SignUp.css';
 
 class SignUp extends Component {
@@ -7,13 +9,8 @@ class SignUp extends Component {
     this.state = {
       username: null,
       password: null,
-      existingUsers: null,
-      usernameExistsMessage: null
+      usernameExistsMessage: null,
     }
-  }
-
-  componentDidMount = () => {
-    this.getUsers();
   }
 
   handleInputChange = e => {
@@ -23,15 +20,10 @@ class SignUp extends Component {
     });
   }
 
-  getUsers = async e => {
-    const initalFetch = await fetch(`http://localhost:3000/api/v1/users`);
-    const existingUsers = await initalFetch.json();
-    this.setState({ existingUsers });
-  }
-
   checkIfUsernameExists = e => {
     e.preventDefault();
-    const { existingUsers, username } = this.state;
+    const { username } = this.state;
+    const { existingUsers } = this.props;
     const userExists = existingUsers.find( user => user.username === username ? user : null );
     document.getElementById('sign-up').reset();
     !userExists ? this.postUser() : this.usernameExistsMessage();
@@ -53,23 +45,27 @@ class SignUp extends Component {
 
   render() {
     const { usernameExistsMessage } = this.state;
-    const errorMessage = usernameExistsMessage ? <h5>{usernameExistsMessage}</h5> : null;
-
+    const errorMessage = usernameExistsMessage ? <h5 className='error-message'>{usernameExistsMessage}</h5> : null;
+   
     return (
       <div>
         <form id='sign-up'
-              onSubmit={ e => this.checkIfUsernameExists(e) }>
-          <h3 className='signup-text'>Sign Up</h3>
-          {errorMessage}
-          <input type='text'
-                 name='username'
-                 placeholder='username'
-                 onChange={ e => this.handleInputChange(e) } />
-          <input type='password'
-                 name='password'
-                 placeholder='password' 
-                 onChange={ e => this.handleInputChange(e) } />
-          <button disabled={!this.state.username || !this.state.password}>Sign Up</button>
+            onSubmit={ e => this.checkIfUsernameExists(e) }>
+        <h3 className='signup-text'>Sign Up</h3>
+        {errorMessage}
+        <input type='text'
+              name='username'
+              placeholder='Username'
+              onChange={ e => this.handleInputChange(e) } />
+        <input type='password'
+              name='password'
+              placeholder='Password' 
+              onChange={ e => this.handleInputChange(e) } />
+        <input type='password'
+              name='password'
+              placeholder='Confirm Password' 
+              onChange={ e => this.handleInputChange(e) } />
+        <button disabled={!this.state.username || !this.state.password}>Sign Up</button>
         </form>
       </div>
     );
