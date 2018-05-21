@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 import { addUser } from '../redux/actions/index.js';
 import './SignIn.css';
 
@@ -61,4 +61,4 @@ const mapDispatchToProps = dispatch => ({
   addUser: user => dispatch(addUser(user))
 });
 
-export default connect(null, mapDispatchToProps)(SignIn);
+export default withRouter(connect(null, mapDispatchToProps)(SignIn));
