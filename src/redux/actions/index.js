@@ -6,9 +6,13 @@ export const fetchApiMovies = () => async (dispatch) => {
 };
 
 export const addMovies = movies => {
-  console.log(movies)
   return {
     type: 'ADD_MOVIES',
     movies
   }
 };
+
+export const addUser = user => ({
+  type: 'ADD_USER',
+  user
+});
