@@ -19,6 +19,8 @@ h1 {
 }
 
 .nav-links {
+  display: flex;
+  flex-direction: column;
   margin-right: 20px;
 }
 
