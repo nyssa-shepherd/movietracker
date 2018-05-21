@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { addUser } from '../redux/actions/index.js';
 import './SignIn.css';
 
 class SignIn extends Component {
@@ -21,11 +23,12 @@ class SignIn extends Component {
 
   getUser = e => {
     e.preventDefault();
-    const { existingUsers } = this.props;
+    const { existingUsers, addUser } = this.props;
     const { username, password } = this.state;
     const matchingUser = existingUsers.find(user => user.username === username);
-    matchingUser.password === password ? this.setState({ redirect: true }) : console.log('Imposter!');
-    console.log(this.state)
+    matchingUser.password === password ? this.setState({ redirect: true }, () => {
+      addUser(matchingUser);
+    }) : console.log('Imposter!');
   }
 
   render() {
@@ -54,4 +57,8 @@ class SignIn extends Component {
   }
 };
 
-export default SignIn;
+const mapDispatchToProps = dispatch => ({
+  addUser: user => dispatch(addUser(user))
+});
+
+export default connect(null, mapDispatchToProps)(SignIn);
