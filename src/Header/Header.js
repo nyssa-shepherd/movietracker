@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, NavLink } from 'react-router-dom';
 import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
 import Home from '../Home/Home';
 import Form from '../Form/Form';
 import './Header.css';
@@ -16,13 +17,15 @@ class Header extends Component {
   render() {
     let toLog;
     let log;
+    let welcomeUser;
 
-    if (!this.state.user) {
-      toLog = '/signup'
-      log = 'Sign Up/Log In'
+    if (!this.props.user) {
+      toLog = '/signup';
+      log = 'Sign Up/Log In';
     } else { 
-      toLog = 'logout' 
-      log = 'Log Out'
+      toLog = 'logout'; 
+      log = 'Log Out';
+      welcomeUser = 'Welcome, ' + this.props.user.username;
     }
 
     return (
@@ -30,6 +33,7 @@ class Header extends Component {
         <div className='header-text'>
           <h1>Movie Tracker</h1>
           <div className='nav-links'>
+            {welcomeUser}
             <NavLink to={toLog} className='nav'>{log}</NavLink>
           </div>
         </div>
@@ -42,5 +46,9 @@ class Header extends Component {
   };
 };
 
-export default Header;
+const mapStateToProps = store => ({
+  user: store.user
+});
+
+export default withRouter(connect(mapStateToProps)(Header));
 

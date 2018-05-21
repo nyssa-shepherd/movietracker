@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { fetchMovies } from '../api/apiCalls';
 import { connect } from 'react-redux';
 import { fetchApiMovies } from '../redux/actions/index.js';
+import { withRouter } from 'react-router-dom';
 import Header from '../Header/Header';
 import SignUp from '../SignUp/SignUp';
 
@@ -25,4 +26,4 @@ const mapDispatchToProps = dispatch => ({
   fetchApiMovies: () => dispatch(fetchApiMovies())
 });
 
-export default connect(null, mapDispatchToProps)(App);
+export default withRouter(connect(null, mapDispatchToProps)(App));
