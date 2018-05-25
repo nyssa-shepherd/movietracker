@@ -13,6 +13,7 @@ class Cards extends Component {
       return (
         <div className='card' key={i}>
           <h3>{movie.title}</h3>
+          <button>Favorite</button>
           <h5>{cleanDate}</h5>
           <p>{movie.overview}</p>
         </div>
