@@ -60,7 +60,7 @@ app.post('/api/v1/users', (request, response) => {
 });
 
 app.post('/api/v1/users/:id/favorites', (request, response) => {
-  const user_id = request.params.id
+  //const user_id = request.params.id
   const favoriteInfo = request.body;
 
   for (let requiredParameter of ['movie', 'user_id']) {

@@ -15,9 +15,22 @@ class Cards extends Component {
   favoriteMovie = id => {
     const { movies, addMovies, addFavorite } = this.props;
     let match = movies.find( movie => movie.id === parseInt(id) ? movie : null);
+   
     match.favorite = !match.favorite;
     addMovies(movies);
     addFavorite(match);
+    this.postFavorites(match.title);
+  }
+
+  postFavorites = async(movie) => {
+    const user_id  = this.props.user.id;
+    //console.log(match)
+    const post = await fetch(`http://localhost:3000/api/v1/users/${user_id}/favorites`, {
+      method: 'POST',
+      body: JSON.stringify({ movie, user_id }),
+      headers: new Headers({ 'Content-Type': 'application/json' }) 
+    });
+    const favorites = await post.json();
   }
 
   render() {
