@@ -4,8 +4,13 @@ import { addMovies } from '../../actions/index.js';
 import './Cards.css';
 
 class Cards extends Component {
-  favoriteMovie = e => {
+  checkForUser = e => {
+    const { user } = this.props;
     const { id } = e.target.parentNode;
+    user ? this.favoriteMovie(id) : console.log('no');
+  }
+
+  favoriteMovie = id => {
     const { movies, addMovies } = this.props;
     let match = movies.find( movie => movie.id === parseInt(id) ? movie : null);
     match.favorite = !match.favorite;
@@ -21,7 +26,7 @@ class Cards extends Component {
       return (
         <div className='card' key={i} id={movie.id}>
           <h3>{movie.title}</h3>
-          <button onClick={ (e) => this.favoriteMovie(e) }>Favorite</button>
+          <button onClick={ (e) => this.checkForUser(e) }>Favorite</button>
           <h5>{cleanDate}</h5>
           <p>{movie.overview}</p>
         </div>
@@ -37,7 +42,8 @@ class Cards extends Component {
 };
 
 const mapStateToProps = store => ({
-  movies: store.movies
+  movies: store.movies,
+  user: store.user
 });
 
 const mapDispatchToProps = dispatch => ({
