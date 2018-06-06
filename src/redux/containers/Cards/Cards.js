@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { addMovies } from '../../actions/index.js';
 import './Cards.css';
 
 class Cards extends Component {
   favoriteMovie = e => {
     const { id } = e.target.parentNode;
-    const { movies } = this.props;
+    const { movies, addMovies } = this.props;
     let match = movies.find( movie => movie.id === parseInt(id) ? movie : null);
     match.favorite = !match.favorite;
-    console.log(match);
+    addMovies(movies);
   }
 
   render() {
@@ -39,4 +40,8 @@ const mapStateToProps = store => ({
   movies: store.movies
 });
 
-export default connect(mapStateToProps)(Cards);
+const mapDispatchToProps = dispatch => ({
+  addMovies: movies => dispatch(addMovies(movies))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cards);
