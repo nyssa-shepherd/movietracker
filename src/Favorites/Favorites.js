@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Cards from '../redux/containers/Cards/Cards';
 
 class Favorites extends Component {
   constructor() {
@@ -7,7 +8,9 @@ class Favorites extends Component {
 
   render() {
     return (
-      <div></div>
+      <div>
+        <Cards />
+      </div>
     );
   }
 }

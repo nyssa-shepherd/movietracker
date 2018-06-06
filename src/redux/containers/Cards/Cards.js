@@ -21,11 +21,10 @@ class Cards extends Component {
   }
 
   render() {
-    const { location, favorites } = this.props;
-    
-    const cardData = location.pathname === '/home' ? this.props.movies : favorites;
-    console.log(cardData)
-    const movies = cardData.map(( movie, i ) => {
+    const { location, favorites, movies } = this.props;
+    const cardData = location.pathname === '/home' ? movies : favorites;
+
+    const movieData = cardData.map(( movie, i ) => {
       let originalDate = movie.date.split('-');
       let cleanDate = [originalDate[1], originalDate[2], originalDate[0]];
       cleanDate = cleanDate.join('/');
@@ -42,7 +41,7 @@ class Cards extends Component {
     
     return (
       <div className='card-container'>
-        {movies}
+        {movieData}
       </div>
     );
   }

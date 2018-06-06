@@ -42,7 +42,7 @@ class Header extends Component {
         <div>
           <Route exact path='/home' component={Home} />
           <Route exact path='/signup' component={Form} />
-          <Route exact path='/favorites' component={Home} />
+          <Route exact path='/favorites' component={Favorites} />
       </div>
       </div>
     );
