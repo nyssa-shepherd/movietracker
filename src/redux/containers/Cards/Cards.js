@@ -3,17 +3,24 @@ import { connect } from 'react-redux';
 import './Cards.css';
 
 class Cards extends Component {
+  favoriteMovie = e => {
+    const { id } = e.target.parentNode;
+    const { movies } = this.props;
+    let match = movies.find( movie => movie.id === parseInt(id) ? movie : null);
+    match.favorite = !match.favorite;
+    console.log(match);
+  }
+
   render() {
     const movies = this.props.movies.map(( movie, i ) => {
-      console.log(movie)
-      let originalDate = movie.release_date.split('-');
+      let originalDate = movie.date.split('-');
       let cleanDate = [originalDate[1], originalDate[2], originalDate[0]];
       cleanDate = cleanDate.join('/');
 
       return (
-        <div className='card' key={i}>
+        <div className='card' key={i} id={movie.id}>
           <h3>{movie.title}</h3>
-          <button>Favorite</button>
+          <button onClick={ (e) => this.favoriteMovie(e) }>Favorite</button>
           <h5>{cleanDate}</h5>
           <p>{movie.overview}</p>
         </div>
