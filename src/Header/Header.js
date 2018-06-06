@@ -4,6 +4,7 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import Home from '../Home/Home';
 import Form from '../Form/Form';
+import Favorites from '../Favorites/Favorites';
 import './Header.css';
 
 class Header extends Component {
@@ -35,11 +36,13 @@ class Header extends Component {
           <div className='nav-links'>
             {welcomeUser}
             <NavLink to={toLog} className='nav'>{log}</NavLink>
+            <NavLink to='/favorites' className='nav'>Favorites</NavLink>
           </div>
         </div>
         <div>
           <Route exact path='/home' component={Home} />
           <Route exact path='/signup' component={Form} />
+          <Route exact path='/signup' component={Favorites} />
       </div>
       </div>
     );
