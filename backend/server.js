@@ -63,7 +63,7 @@ app.post('/api/v1/users/:id/favorites', (request, response) => {
   //const user_id = request.params.id
   const favoriteInfo = request.body;
 
-  for (let requiredParameter of ['movie', 'user_id']) {
+  for (let requiredParameter of ['user_id', 'movie_id', 'title', 'poster', 'overview', 'date']) {
     if (!favoriteInfo[requiredParameter]) {
       return response
         .status(422)
@@ -73,8 +73,8 @@ app.post('/api/v1/users/:id/favorites', (request, response) => {
 
   database('favorites').insert(favoriteInfo, 'id')
     .then( favorite => {
-      const { movie, user_id } = favoriteInfo;
-      response.status(201).json({ id: favorite[0], user_id, movie });
+      const { user_id, movie_id, title, poster, overview, date } = favoriteInfo;
+      response.status(201).json({ id: favorite[0], user_id, movie_id, title, poster, overview, date  });
     })
     .catch(error => {
       response.status(500).json({ error });
