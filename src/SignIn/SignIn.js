@@ -28,7 +28,12 @@ class SignIn extends Component {
     const matchingUser = existingUsers.find(user => user.username === username);
     matchingUser.password === password ? this.setState({ redirect: true }, () => {
       addUser(matchingUser);
+      this.addUserToLocalStorage(matchingUser);
     }) : console.log('Imposter!');
+  }
+
+  addUserToLocalStorage = matchingUser => {
+    localStorage.setItem('user', JSON.stringify(matchingUser));
   }
 
   render() {

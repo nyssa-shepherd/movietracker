@@ -37,6 +37,11 @@ class SignUp extends Component {
       headers: new Headers({ 'Content-Type': 'application/json' })
     });
     const user = await post.json();
+    this.addUserToLocalStorage(user);
+  }
+
+  addUserToLocalStorage = matchingUser => {
+    localStorage.setItem('user', JSON.stringify(matchingUser));
   }
 
   usernameExistsMessage = () => {
