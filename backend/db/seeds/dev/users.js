@@ -9,8 +9,7 @@ exports.seed = function(knex, Promise) {
         }, 'id')
         .then(users => {
           return knex('favorites').insert([
-            { movie: 'Lorem', user_id: users[0] },
-            { movie: 'Dolor', user_id: users[0] }
+            { title: 'Lorem', poster: 'a', overview: 'b', date: 'c', user_id: users[0] },
           ])
         })
         .then(() => console.log('Seeding complete!'))
