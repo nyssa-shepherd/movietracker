@@ -14,3 +14,8 @@ export const addUser = user => ({
   type: 'ADD_USER',
   user
 });
+
+export const addFavorite = favoriteMovie => ({
+  type: 'ADD_FAVORITE',
+  favoriteMovie
+});

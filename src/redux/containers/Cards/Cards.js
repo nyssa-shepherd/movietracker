@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addMovies } from '../../actions/index.js';
+import { Route, NavLink } from 'react-router-dom';
+import { withRouter } from 'react-router';
+import { addMovies, addFavorite } from '../../actions/index.js';
 import './Cards.css';
 
 class Cards extends Component {
@@ -11,14 +13,31 @@ class Cards extends Component {
   }
 
   favoriteMovie = id => {
-    const { movies, addMovies } = this.props;
+    const { movies, addMovies, addFavorite } = this.props;
     let match = movies.find( movie => movie.id === parseInt(id) ? movie : null);
+   
     match.favorite = !match.favorite;
     addMovies(movies);
+    addFavorite(match);
+    this.postFavorites(match.title);
+  }
+
+  postFavorites = async(movie) => {
+    const user_id  = this.props.user.id;
+    //console.log(match)
+    const post = await fetch(`http://localhost:3000/api/v1/users/${user_id}/favorites`, {
+      method: 'POST',
+      body: JSON.stringify({ movie, user_id }),
+      headers: new Headers({ 'Content-Type': 'application/json' }) 
+    });
+    const favorites = await post.json();
   }
 
   render() {
-    const movies = this.props.movies.map(( movie, i ) => {
+    const { location, favorites, movies } = this.props;
+    const cardData = location.pathname === '/home' ? movies : favorites;
+
+    const movieData = cardData.map(( movie, i ) => {
       let originalDate = movie.date.split('-');
       let cleanDate = [originalDate[1], originalDate[2], originalDate[0]];
       cleanDate = cleanDate.join('/');
@@ -35,7 +54,7 @@ class Cards extends Component {
     
     return (
       <div className='card-container'>
-        {movies}
+        {movieData}
       </div>
     );
   }
@@ -43,11 +62,13 @@ class Cards extends Component {
 
 const mapStateToProps = store => ({
   movies: store.movies,
-  user: store.user
+  user: store.user,
+  favorites: store.favorites
 });
 
 const mapDispatchToProps = dispatch => ({
-  addMovies: movies => dispatch(addMovies(movies))
+  addMovies: movies => dispatch(addMovies(movies)),
+  addFavorite: favoriteMovie => dispatch(addFavorite(favoriteMovie))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Cards);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Cards));
